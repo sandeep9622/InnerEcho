@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inner Echo</title>
+    <meta name="theme-color" content="#ffffff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Inner Echo">
+    <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48dGV4dCB5PSIuOWVtIiBmb250LXNpemU9IjkwIj7ilrDvuI8vdGV4dD48L3N2Zz4=">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="menu">☰</div>
+    <div class="dark-mode-toggle">🌙</div>
+    <div id="overlay" class="overlay"></div>
+    <div id="side-menu" class="side-menu"></div>
+    <div id="help-container" class="help-container">
+        <div class="help-section">
+            <h1>Help & Guide</h1>
+            <p class="help-intro">Welcome to Inner Echo, your personal note-taking companion. This guide will help you make the most of the app's features.</p>
+        </div>
+
+        <div class="help-section">
+            <h2>Getting Started</h2>
+            <p>Inner Echo is a simple yet powerful note-taking app designed for capturing your thoughts, ideas, and reflections. Whether you're jotting down quick reminders or writing detailed journal entries, Inner Echo provides a clean, distraction-free environment.</p>
+        </div>
+
+        <div class="help-section">
+            <h2>Writing Notes</h2>
+            <ul>
+                <li><strong>Main Writing Area:</strong> The large text area on the home screen is where you write your notes. Start typing immediately - no setup required.</li>
+                <li><strong>Auto-Save:</strong> Your notes are automatically saved as you type, with a "Saved" indicator appearing briefly to confirm.</li>
+                <li><strong>Persistent Draft:</strong> Your current note remains saved even if you close the app or refresh the page.</li>
+            </ul>
+        </div>
+
+        <div class="help-section">
+            <h2>Managing Your Notes</h2>
+            <ul>
+                <li><strong>History:</strong> Access all your saved notes through the History menu. Notes are saved automatically when you leave the writing area (by switching pages or closing the app) if they contain more than 10 characters.</li>
+                <li><strong>Editing Notes:</strong> Click on any note in History to edit it. Your changes will update the existing note.</li>
+                <li><strong>Backup & Restore:</strong> Use the backup button to download all your notes as a JSON file. Use the restore button to import notes from a previously created backup file. The app will intelligently merge imported notes with your existing ones.</li>
+            </ul>
+        </div>
+
+        <div class="help-section">
+            <h2>AI Analysis Feature</h2>
+            <p>Inner Echo includes intelligent analysis of your notes:</p>
+            <ul>
+                <li><strong>Sentiment Analysis:</strong> The app analyzes the emotional tone of your writing, showing whether your note is positive, negative, or neutral.</li>
+                <li><strong>Keyword Extraction:</strong> Automatically identifies the most important words and themes in your notes.</li>
+                <li><strong>Real-time Analysis:</strong> Analysis happens automatically as you write, with results appearing in a panel after a brief pause in typing.</li>
+            </ul>
+        </div>
+
+        <div class="help-section">
+            <h2>Navigation & Interface</h2>
+            <ul>
+                <li><strong>Menu:</strong> Tap the ☰ icon in the top-left to access the navigation menu.</li>
+                <li><strong>Dark Mode:</strong> Toggle between light and dark themes using the moon/sun icon in the top-right.</li>
+                <li><strong>Responsive Design:</strong> The app works seamlessly on desktop, tablet, and mobile devices.</li>
+            </ul>
+        </div>
+
+        <div class="help-section">
+            <h2>Privacy & Data</h2>
+            <ul>
+                <li><strong>Local Storage:</strong> All your notes are stored locally on your device. Nothing is sent to external servers.</li>
+                <li><strong>Offline Support:</strong> The app works without an internet connection for basic note-taking.</li>
+                <li><strong>PWA Features:</strong> Install the app on your device for a native app-like experience.</li>
+            </ul>
+        </div>
+
+        <div class="help-section">
+            <h2>Tips for Best Experience</h2>
+            <ul>
+                <li>Write freely without worrying about formatting - focus on your thoughts.</li>
+                <li>Use the History page to review and organize your ideas over time.</li>
+                <li>The AI analysis can help you reflect on your emotional state and recurring themes.</li>
+                <li>Install the app on your device for quick access and offline use.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

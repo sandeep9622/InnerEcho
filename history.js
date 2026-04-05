@@ -1,6 +1,98 @@
 document.addEventListener('DOMContentLoaded', () => {
     const historyContainer = document.getElementById('history-container');
 
+    // Add backup and restore controls
+    const controlsDiv = document.createElement('div');
+    controlsDiv.className = 'backup-controls';
+    controlsDiv.innerHTML = `
+        <button id="backup-btn" class="backup-btn">📥 Backup Notes</button>
+        <button id="restore-btn" class="restore-btn">📤 Restore Notes</button>
+        <input type="file" id="restore-file" accept=".json" style="display: none;">
+    `;
+    historyContainer.appendChild(controlsDiv);
+
+    // Backup functionality
+    document.getElementById('backup-btn').addEventListener('click', () => {
+        const history = JSON.parse(localStorage.getItem('notes_history')) || [];
+        if (history.length === 0) {
+            alert('No notes to backup.');
+            return;
+        }
+
+        const dataStr = JSON.stringify(history, null, 2);
+        const dataBlob = new Blob([dataStr], {type: 'application/json'});
+        const url = URL.createObjectURL(dataBlob);
+
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `inner-echo-notes-${new Date().toISOString().split('T')[0]}.json`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    });
+
+    // Restore functionality
+    document.getElementById('restore-btn').addEventListener('click', () => {
+        document.getElementById('restore-file').click();
+    });
+
+    document.getElementById('restore-file').addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try {
+                const importedNotes = JSON.parse(e.target.result);
+
+                // Validate the imported data structure
+                if (!Array.isArray(importedNotes)) {
+                    throw new Error('Invalid file format. Expected an array of notes.');
+                }
+
+                // Validate each note has required fields
+                for (const note of importedNotes) {
+                    if (!note.id || !note.text || !note.savedAt) {
+                        throw new Error('Invalid note format. Each note must have id, text, and savedAt fields.');
+                    }
+                }
+
+                // Get existing notes
+                const existingNotes = JSON.parse(localStorage.getItem('notes_history')) || [];
+
+                // Merge notes, avoiding duplicates by ID
+                const mergedNotes = [...existingNotes];
+                let importedCount = 0;
+
+                for (const importedNote of importedNotes) {
+                    const existingIndex = mergedNotes.findIndex(note => note.id === importedNote.id);
+                    if (existingIndex === -1) {
+                        // New note, add it
+                        mergedNotes.push(importedNote);
+                        importedCount++;
+                    } else {
+                        // Existing note, ask user if they want to overwrite
+                        if (confirm(`Note with ID ${importedNote.id} already exists. Overwrite it?`)) {
+                            mergedNotes[existingIndex] = importedNote;
+                            importedCount++;
+                        }
+                    }
+                }
+
+                // Save merged notes
+                localStorage.setItem('notes_history', JSON.stringify(mergedNotes));
+
+                alert(`Successfully imported ${importedCount} note(s). Page will reload to show changes.`);
+                location.reload();
+
+            } catch (error) {
+                alert('Error importing notes: ' + error.message);
+            }
+        };
+        reader.readAsText(file);
+    });
+
     function timeAgo(isoTimestamp) {
         const now = new Date();
         const past = new Date(isoTimestamp);

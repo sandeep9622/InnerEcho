@@ -11,6 +11,7 @@
     <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48dGV4dCB5PSIuOWVtIiBmb250LXNpemU9IjkwIj7ilrDvuI8vdGV4dD48L3N2Zz4=">
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@xenova/transformers"></script>
 </head>
 <body>
     <div class="menu">☰</div>
@@ -19,6 +20,23 @@
     <div id="side-menu" class="side-menu"></div>
     <textarea id="note"></textarea>
     <div id="saved-indicator">Saved</div>
+    
+    <!-- AI Analysis Panel -->
+    <div id="ai-analysis-panel" class="ai-analysis-panel" style="display: none;">
+        <div class="panel-header">
+            <div class="panel-title">
+                <span class="loading-spinner"></span>
+                <span>AI Analysis</span>
+            </div>
+            <button class="panel-close" title="Dismiss">✕</button>
+        </div>
+        <div id="panel-content">
+            <div class="ai-loading-text">
+                <span class="loading-spinner"></span>
+                <span>AI loading...</span>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
-</html>
