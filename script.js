@@ -19,10 +19,24 @@ function buildMenu(pageName) {
         window.location.href = 'history.html';
     });
     sideMenu.appendChild(historyItem);
+
+    const aboutItem = document.createElement('div');
+    aboutItem.className = 'menu-item' + (pageName === 'about' ? ' active' : '');
+    aboutItem.id = 'about-btn';
+    aboutItem.innerHTML = '<span class="icon">ℹ️</span><span class="label">About</span>';
+    aboutItem.addEventListener('click', () => {
+        window.location.href = 'about.html';
+    });
+    sideMenu.appendChild(aboutItem);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const pageName = document.getElementById('note') ? 'index' : 'history';
+    let pageName = 'index';
+    if (document.getElementById('history-container')) {
+        pageName = 'history';
+    } else if (document.getElementById('about-container')) {
+        pageName = 'about';
+    }
     buildMenu(pageName);
 
     const menuBtn = document.querySelector('.menu');
@@ -49,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Load edit note if any
         const editNote = localStorage.getItem('edit_note');
+        const editNoteId = localStorage.getItem('edit_note_id');
         if (editNote) {
             noteTextarea.value = editNote;
             localStorage.removeItem('edit_note');
@@ -80,14 +95,26 @@ document.addEventListener('DOMContentLoaded', () => {
             const text = noteTextarea.value.trim();
             if (text.length > 10) {
                 const history = JSON.parse(localStorage.getItem('notes_history')) || [];
-                const newEntry = {
-                    id: Date.now(),
-                    text: text,
-                    savedAt: new Date().toISOString()
-                };
-                history.push(newEntry);
-                if (history.length > 100) {
-                    history.shift();
+                
+                if (editNoteId) {
+                    // Update existing note
+                    const noteIndex = history.findIndex(note => note.id == editNoteId);
+                    if (noteIndex !== -1) {
+                        history[noteIndex].text = text;
+                        history[noteIndex].savedAt = new Date().toISOString();
+                    }
+                    localStorage.removeItem('edit_note_id');
+                } else {
+                    // Create new note
+                    const newEntry = {
+                        id: Date.now(),
+                        text: text,
+                        savedAt: new Date().toISOString()
+                    };
+                    history.push(newEntry);
+                    if (history.length > 100) {
+                        history.shift();
+                    }
                 }
                 localStorage.setItem('notes_history', JSON.stringify(history));
             }

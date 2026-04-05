@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         noteRow.style.cursor = 'pointer';
         noteRow.addEventListener('click', () => {
             localStorage.setItem('edit_note', note.text);
+            localStorage.setItem('edit_note_id', note.id);
             window.location.href = 'index.html';
         });
 
